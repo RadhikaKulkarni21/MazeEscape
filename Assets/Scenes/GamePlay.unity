@@ -6863,7 +6863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3753159061543939707, guid: 38f64933f5f527f4dbfb0853ac000eed, type: 3}
       propertyPath: m_Name
-      value: Guma(Player)
+      value: Gumayushi(Player)
       objectReference: {fileID: 0}
     - target: {fileID: 8206092725063052097, guid: 38f64933f5f527f4dbfb0853ac000eed, type: 3}
       propertyPath: m_DefaultControlScheme
