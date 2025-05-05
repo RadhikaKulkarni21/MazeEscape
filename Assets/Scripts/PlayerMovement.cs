@@ -3,15 +3,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]float runSpeed = 10f;
+    [SerializeField]float runSpeed = 5f;
+    [SerializeField]float jumpSpeed = 5f;
+
     Vector2 moveInput;
     Rigidbody2D gumayushiRigidBody;
     Animator gumayushiAnimator;
+    CapsuleCollider2D gumayushiCollider;
 
     void Start()
     {
         gumayushiRigidBody = GetComponent<Rigidbody2D>();
         gumayushiAnimator = GetComponent<Animator>();
+        gumayushiCollider = GetComponent<CapsuleCollider2D>();
     }
 
     void Update()
@@ -24,6 +28,20 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
         Debug.Log(moveInput);
+    }
+
+    //Jump
+    void OnJump(InputValue value)
+    {
+        //button pressed do a thing
+        if (!gumayushiCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            return;
+        }
+        if (value.isPressed)
+        {
+            gumayushiRigidBody.linearVelocity += new Vector2(0f, jumpSpeed);
+        }
     }
     
     //y is set to deafult value as to give it gravity feel
