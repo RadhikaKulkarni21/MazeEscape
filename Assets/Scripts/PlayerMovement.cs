@@ -5,16 +5,19 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]float runSpeed = 10f;
     Vector2 moveInput;
-    Rigidbody2D GumayushiRigidBody;
+    Rigidbody2D gumayushiRigidBody;
+    Animator gumayushiAnimator;
 
     void Start()
     {
-        GumayushiRigidBody = GetComponent<Rigidbody2D>();
+        gumayushiRigidBody = GetComponent<Rigidbody2D>();
+        gumayushiAnimator = GetComponent<Animator>();
     }
 
     void Update()
     {
         Run();
+        FlipSprite();
     }
 
     void OnMove(InputValue value)
@@ -27,7 +30,23 @@ public class PlayerMovement : MonoBehaviour
     //We are adding new velocity each frame but for x only so y remains constant
     void Run()
     {
-        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, GumayushiRigidBody.linearVelocity.y);
-        GumayushiRigidBody.linearVelocity = playerVelocity;
+        Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, gumayushiRigidBody.linearVelocity.y);
+        gumayushiRigidBody.linearVelocity = playerVelocity;
+
+        bool playerHasHorizontalSpeed = Mathf.Abs(gumayushiRigidBody.linearVelocity.x) > Mathf.Epsilon;
+
+        gumayushiAnimator.SetBool("IsRunning", playerHasHorizontalSpeed);
+    }
+
+    //Flippinhg the character to go left when going left or right when going right
+    void FlipSprite()
+    {
+        //adding a bool so that player moving left does not face right again when let go of the key
+        bool playerHasHorizontalSpeed = Mathf.Abs(gumayushiRigidBody.linearVelocity.x) > Mathf.Epsilon;
+
+        if (playerHasHorizontalSpeed)
+        {
+            transform.localScale = new Vector2(Mathf.Sign(gumayushiRigidBody.linearVelocity.x), 1f);
+        }      
     }
 }
