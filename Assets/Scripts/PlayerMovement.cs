@@ -5,23 +5,27 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]float runSpeed = 5f;
     [SerializeField]float jumpSpeed = 5f;
+    [SerializeField]float climbSpeed = 5f;
 
     Vector2 moveInput;
     Rigidbody2D gumayushiRigidBody;
     Animator gumayushiAnimator;
     CapsuleCollider2D gumayushiCollider;
+    float initialGravityScale;
 
     void Start()
     {
         gumayushiRigidBody = GetComponent<Rigidbody2D>();
         gumayushiAnimator = GetComponent<Animator>();
         gumayushiCollider = GetComponent<CapsuleCollider2D>();
+        initialGravityScale = gumayushiRigidBody.gravityScale;
     }
 
     void Update()
     {
         Run();
         FlipSprite();
+        ClimbLadder();
     }
 
     void OnMove(InputValue value)
@@ -66,5 +70,24 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.localScale = new Vector2(Mathf.Sign(gumayushiRigidBody.linearVelocity.x), 1f);
         }      
+    }
+
+    void ClimbLadder()
+    {
+        if (!gumayushiCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            gumayushiRigidBody.gravityScale = initialGravityScale;
+            gumayushiAnimator.SetBool("IsClimbing", false);
+            return;
+        }
+
+        Vector2 climbVelocity = new Vector2(gumayushiRigidBody.linearVelocity.x, moveInput.y * climbSpeed);
+        gumayushiRigidBody.linearVelocity = climbVelocity;
+        //To stop the player from drifting from the ladder
+        gumayushiRigidBody.gravityScale = 0f;
+
+        //Idle if not climbing
+        bool playerHasVerticalSpeed = Mathf.Abs(gumayushiRigidBody.linearVelocity.y) > Mathf.Epsilon;
+        gumayushiAnimator.SetBool("IsClimbing", playerHasVerticalSpeed);
     }
 }
