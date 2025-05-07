@@ -5,7 +5,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]float runSpeed = 5f;
     [SerializeField]float jumpSpeed = 5f;
-    [SerializeField]float climbSpeed = 5f;
+    [SerializeField] float climbSpeed = 5f;
+    [SerializeField] new Vector2 deathKick = new Vector2 (10f, 10f);
 
     Vector2 moveInput;
     Rigidbody2D gumayushiRigidBody;
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     CapsuleCollider2D gumayushiBodyCollider;
     BoxCollider2D gumayushiFeetCollider;
     float initialGravityScale;
+    bool isAlive = true;
 
     void Start()
     {
@@ -25,9 +27,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!isAlive)
+        {
+            return;
+        }
         Run();
         FlipSprite();
         ClimbLadder();
+        Die();
     }
 
 
@@ -35,13 +42,20 @@ public class PlayerMovement : MonoBehaviour
     //Greyed out because not called anywhere in the script but being called directly when player performs actions
     void OnMove(InputValue value)
     {
+        if (!isAlive)
+        {
+            return;
+        }
         moveInput = value.Get<Vector2>();
-        //Debug.Log(moveInput);
     }
 
     //Jump
     void OnJump(InputValue value)
     {
+        if (!isAlive)
+        {
+            return;
+        }
         //button pressed do a thing
         if (!gumayushiFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -94,5 +108,16 @@ public class PlayerMovement : MonoBehaviour
         //Idle if not climbing
         bool playerHasVerticalSpeed = Mathf.Abs(gumayushiRigidBody.linearVelocity.y) > Mathf.Epsilon;
         gumayushiAnimator.SetBool("IsClimbing", playerHasVerticalSpeed);
+    }
+
+    void Die()
+    {
+        //Enemies
+        if (gumayushiBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            isAlive = false;
+            gumayushiAnimator.SetTrigger("Dying");
+            gumayushiRigidBody.linearVelocity = deathKick;
+        }
     }
 }
