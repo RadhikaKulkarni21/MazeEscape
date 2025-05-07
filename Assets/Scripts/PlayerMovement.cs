@@ -10,14 +10,16 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D gumayushiRigidBody;
     Animator gumayushiAnimator;
-    CapsuleCollider2D gumayushiCollider;
+    CapsuleCollider2D gumayushiBodyCollider;
+    BoxCollider2D gumayushiFeetCollider;
     float initialGravityScale;
 
     void Start()
     {
         gumayushiRigidBody = GetComponent<Rigidbody2D>();
         gumayushiAnimator = GetComponent<Animator>();
-        gumayushiCollider = GetComponent<CapsuleCollider2D>();
+        gumayushiBodyCollider = GetComponent<CapsuleCollider2D>();
+        gumayushiFeetCollider = GetComponent<BoxCollider2D>();
         initialGravityScale = gumayushiRigidBody.gravityScale;
     }
 
@@ -28,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
         ClimbLadder();
     }
 
+
+    //Greyed out fuctions are premade PlayerInput component, check the player and component
+    //Greyed out because not called anywhere in the script but being called directly when player performs actions
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -38,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     void OnJump(InputValue value)
     {
         //button pressed do a thing
-        if (!gumayushiCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!gumayushiFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             return;
         }
@@ -74,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ClimbLadder()
     {
-        if (!gumayushiCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        if (!gumayushiFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             gumayushiRigidBody.gravityScale = initialGravityScale;
             gumayushiAnimator.SetBool("IsClimbing", false);
