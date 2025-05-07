@@ -3,10 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]float runSpeed = 5f;
-    [SerializeField]float jumpSpeed = 5f;
+    [SerializeField] float runSpeed = 5f;
+    [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float climbSpeed = 5f;
-    [SerializeField] new Vector2 deathKick = new Vector2 (10f, 10f);
+    [SerializeField] Vector2 deathKick = new Vector2 (10f, 10f);
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
 
     Vector2 moveInput;
     Rigidbody2D gumayushiRigidBody;
@@ -37,6 +39,16 @@ public class PlayerMovement : MonoBehaviour
         Die();
     }
 
+
+    void OnFire(InputValue value)
+    {
+        if(!isAlive)
+        {
+            return;
+        }
+        Instantiate(bullet, gun.position, transform.rotation);
+        Debug.Log("Working");
+    }
 
     //Greyed out fuctions are premade PlayerInput component, check the player and component
     //Greyed out because not called anywhere in the script but being called directly when player performs actions
@@ -112,8 +124,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        //Enemies
-        if (gumayushiBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        //Adding to collider, deathkick added to give an effect of flying once collided
+        if (gumayushiBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
         {
             isAlive = false;
             gumayushiAnimator.SetTrigger("Dying");
