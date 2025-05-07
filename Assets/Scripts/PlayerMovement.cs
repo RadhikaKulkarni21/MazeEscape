@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        Debug.Log(moveInput);
+        //Debug.Log(moveInput);
     }
 
     //Jump
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     }
     
     //y is set to deafult value as to give it gravity feel
-    //We are adding new velocity each frame but for x only so y remains constant
+    //We are adding new velocity each frame but for x only so y should remain constant
     void Run()
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, gumayushiRigidBody.linearVelocity.y);
