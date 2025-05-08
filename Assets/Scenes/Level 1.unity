@@ -2957,7 +2957,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 14
-      m_TileSpriteIndex: 11
+      m_TileSpriteIndex: 9
       m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4798,11 +4798,11 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 10
+  - m_RefCount: 11
     m_Data: {fileID: -5134054752372163016, guid: 448866613009da94d99c1bebb9cae554, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -5972448355421142556, guid: 448866613009da94d99c1bebb9cae554, type: 3}
-  - m_RefCount: 25
+  - m_RefCount: 24
     m_Data: {fileID: -7671020578840251174, guid: 448866613009da94d99c1bebb9cae554, type: 3}
   - m_RefCount: 8
     m_Data: {fileID: -3493280607249542649, guid: 448866613009da94d99c1bebb9cae554, type: 3}
@@ -16638,6 +16638,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2110834985945921069, guid: 38f64933f5f527f4dbfb0853ac000eed, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 7161005214709461361, guid: 5112863f7935c6a4cb458e626016a84a, type: 3}
     - target: {fileID: 3753159061543939707, guid: 38f64933f5f527f4dbfb0853ac000eed, type: 3}
       propertyPath: m_Name
       value: Gumayushi(Player)
