@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         Instantiate(bullet, gun.position, transform.rotation);
-        Debug.Log("Working");
     }
 
     //Greyed out fuctions are premade PlayerInput component, check the player and component
