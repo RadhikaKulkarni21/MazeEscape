@@ -129,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
             isAlive = false;
             gumayushiAnimator.SetTrigger("Dying");
             gumayushiRigidBody.linearVelocity = deathKick;
+            FindAnyObjectByType<GameSession>().ProcessPlayerDeath();
         }
     }
 }

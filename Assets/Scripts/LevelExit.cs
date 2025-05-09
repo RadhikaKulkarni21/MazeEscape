@@ -8,8 +8,12 @@ public class LevelExit : MonoBehaviour
     [SerializeField] float levelLoadDelay = 1f;
     void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(LoadNextLevel());
-       
+        //adding tag because exit sign detecting and starting next level when bullet hits
+        if(collision.tag == "Player")
+        {
+            StartCoroutine(LoadNextLevel());
+        }
+
     }
     IEnumerator LoadNextLevel()
     {
