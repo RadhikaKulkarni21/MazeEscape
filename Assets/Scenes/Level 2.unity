@@ -7203,6 +7203,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2130465466354347519, guid: 0b55c7d7e76b5904aac00d75ffe2054c, type: 3}
+      propertyPath: livesText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2130465466354347519, guid: 0b55c7d7e76b5904aac00d75ffe2054c, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5373005433952333189, guid: 0b55c7d7e76b5904aac00d75ffe2054c, type: 3}
       propertyPath: m_Name
       value: GameSession
