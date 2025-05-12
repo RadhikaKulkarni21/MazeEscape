@@ -7,13 +7,17 @@ using UnityEngine.UIElements;
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerLives = 3;
+    [SerializeField] int score = 0;
+
     [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] TextMeshProUGUI scoreText;
 
     //Singleton Pattern
     void Awake()
     {
+        //find all the game sessions
         int numGameSessions = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
+        Debug.Log(numGameSessions);
         if (numGameSessions > 1)
         {
             Destroy(gameObject);
@@ -28,6 +32,7 @@ public class GameSession : MonoBehaviour
     void Start()
     {
         livesText.text = playerLives.ToString();
+        scoreText.text = score.ToString();
     }
 
     public void ProcessPlayerDeath()
@@ -42,17 +47,22 @@ public class GameSession : MonoBehaviour
         }
     }
 
-    private void TakeLife()
+    public void AddToScore(int pointsToAdd)
     {
-        playerLives--;
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
-        livesText.text = playerLives.ToString();
+        score += pointsToAdd;
+        scoreText.text = score.ToString();
     }
 
     void ResetGameSession()
     {
         SceneManager.LoadScene(0);
         Destroy(gameObject);
+    }
+    void TakeLife()
+    {
+        playerLives--;
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+        livesText.text = playerLives.ToString();
     }
 }
