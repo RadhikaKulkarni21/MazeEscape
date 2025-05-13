@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 3885654337359872075}
   m_Layer: 8
   m_Name: Gumayushi(Player)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1759071637
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 1857188551261513057, guid: 13da372057873ac49af75a32f1e192e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -257,7 +257,7 @@ MonoBehaviour:
   jumpSpeed: 20
   climbSpeed: 5
   deathKick: {x: 5, y: 20}
-  bullet: {fileID: 0}
+  bullet: {fileID: 7161005214709461361, guid: 5112863f7935c6a4cb458e626016a84a, type: 3}
   gun: {fileID: 6919654997129981750}
 --- !u!61 &3885654337359872075
 BoxCollider2D:
