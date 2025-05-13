@@ -23,8 +23,9 @@ public class ExitPortal : MonoBehaviour
         if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
         {
             nextSceneIndex = 0;
-            FindAnyObjectByType<ScenePersist>().ResetScenePersist();            
         }
+
+        FindAnyObjectByType<ScenePersist>().ResetScenePersist();
         SceneManager.LoadScene(nextSceneIndex);
     }
 }
